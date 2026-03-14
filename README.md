@@ -152,12 +152,10 @@ python -m pip install paddlepaddle-gpu>=3.1.0 -i https://www.paddlepaddle.org.cn
 After downloading the model checkpoints, use vLLM to deploy model inference services:
 
 download urls:
-- MobiMind-1.5-4B(***fastest&experimental**, support [e2e](https://github.com/IPADS-SAI/MobiAgent/blob/a782deae95fa33159ada0bb04d449be6e71e5e1c/runner/mobiagent/mobiagent.py#L1089)*):
-  -  [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-1.5-4B-1220)
-  -  [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-1.5-4B-1220)
-- MobiMind-Reasoning-4B(**stable**):
-  - [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-Reasoning-4B-1208)
-  - [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-Reasoning-4B-1208)
+- MobiMind-1.5-4B:
+  -  [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-1.5-4B-0313)
+  -  [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-1.5-4B-0313)
+
 
 ```bash
 vllm serve MobiMind-Reasoning-4B --port <decider/grounder port>
@@ -225,8 +223,8 @@ Write the list of tasks that you would like to test in `runner/mobiagent/task.js
 python -m runner.mobiagent.mobiagent \
   --service_ip <Service IP> \
   --decider_port <Decider Service Port> \
-  --grounder_port <Grounder Service Port> # Same as Decider Port, be ignored when using --e2e flag \
   --planner_port <Planner Service Port>
+  # grounder_port is deprecated after MobiMind-1.5-4B-0313
 ```
 
 **With user profile memory:**
@@ -234,10 +232,10 @@ python -m runner.mobiagent.mobiagent \
 python -m runner.mobiagent.mobiagent \
   --service_ip <Service IP> \
   --decider_port <Decider Service Port> \
-  --grounder_port <Grounder Service Port> # Same as Decider Port, be ignored when using --e2e flag \
   --planner_port <Planner Service Port> \
   --user_profile on \
   --use_graphrag off  # Use 'on' for GraphRAG (Neo4j), 'off' for vector search (Milvus)
+  # grounder_port is deprecated after MobiMind-1.5-4B-0313
 ```
 
 Common parameters:

@@ -152,12 +152,10 @@ python -m pip install paddlepaddle-gpu>=3.1.0 -i https://www.paddlepaddle.org.cn
 下载好模型检查点后，使用 vLLM 部署模型推理服务：
 
 download 地址：
-- MobiMind-1.5-4B(***fastest&experimental**, support [e2e](https://github.com/IPADS-SAI/MobiAgent/blob/a782deae95fa33159ada0bb04d449be6e71e5e1c/runner/mobiagent/mobiagent.py#L1089)*):
-  -  [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-1.5-4B-1220)
-  -  [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-1.5-4B-1220)
-- MobiMind-Reasoning-4B(**stable**):
-  - [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-Reasoning-4B-1208)
-  - [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-Reasoning-4B-1208)
+- MobiMind-1.5-4B:
+  -  [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-1.5-4B-0313)
+  -  [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-1.5-4B-0313)
+
 
 ```bash
 vllm serve MobiMind-Reasoning-4B --port <decider/grounder port>
@@ -226,8 +224,8 @@ NEO4J_PASSWORD=testpassword
 python -m runner.mobiagent.mobiagent \
   --service_ip <服务IP> \
   --decider_port <Decider模型端口> \
-  --grounder_port <Grounder模型端口> # 和Decider模型端口一致，在使用--e2e标识后grounder_port可以忽略 \
   --planner_port <Planner模型端口>
+  # grounder_port在MobiMind-1.5-4B-0313之后不再使用
 ```
 
 **启用用户画像记忆**：
@@ -235,10 +233,11 @@ python -m runner.mobiagent.mobiagent \
 python -m runner.mobiagent.mobiagent \
   --service_ip <服务IP> \
   --decider_port <Decider模型端口> \
-  --grounder_port <Grounder模型端口> # 和Decider模型端口一致，在使用--e2e标识后grounder_port可以忽略 \
   --planner_port <Planner模型端口> \
   --user_profile on \
   --use_graphrag off  # 使用 'on' 启用 GraphRAG (Neo4j)，'off' 使用向量检索 (Milvus)
+  # grounder_port在MobiMind-1.5-4B-0313之后不再使用
+
 ```
 
 常用参数：
@@ -247,7 +246,7 @@ python -m runner.mobiagent.mobiagent \
 - `--decider_port`：决策服务端口（默认：`8000`）
 - `--grounder_port`：定位服务端口（默认：`8001`）
 - `--planner_port`：规划服务端口（默认：`8002`）
-- `--e2e`：端到端推理模式，减少grounder调用（默认：`False`）
+- `--e2e`：端到端推理模式，减少grounder调用（默认：`True`）
 - `--device`：设备类型，`Android` 或 `Harmony`（默认：`Android`）
 - `--user_profile`：启用用户画像记忆，`on` 或 `off`（默认：`off`）
 - `--use_graphrag`：使用 GraphRAG (Neo4j) 进行检索，`on` 或 `off`（默认：`off`）
