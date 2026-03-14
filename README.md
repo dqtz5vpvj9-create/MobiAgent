@@ -35,9 +35,11 @@ MobiAgent: A Systematic Framework for Customizable Mobile Agents
 </div>
 
 ## News
+
+- [2026.3.14] 🔥 We are excited to announce the release of [MobiClaw](https://github.com/IPADS-SAI/MobiClaw), our first GUI-based mobile "claw", and new GUI model: [MobiMind-1.5-4B](https://www.modelscope.cn/models/fengerhu1/MobiMind-1.5-4B-0313).
 - [2025.12.26] 📱 **Pure on-device inference on smartphones is now supported!** See [`phone_runner/README.md`](phone_runner/README.md) to get started.
 - [2025.12.25] 🛠️ We've released **unified GUI agent runner** supporting one-click config of multiple models (`MobiAgent`, `UI-TARS`, `AutoGLM`, `Qwen-VL`, `Gemini`, etc.). See [Unify Runner README](https://github.com/IPADS-SAI/MobiAgent/blob/unify-runner/runner/RUNNER_README.md) to get started.
-- [2025.12.08] 🔥 We've released [MobiMind-Reasoning-4B](https://huggingface.co/IPADS-SAI/MobiMind-Reasoning-4B-1208) and its quantized version [MobiMind-Reasoning-4B-AWQ](https://huggingface.co/IPADS-SAI/MobiMind-Reasoning-4B-1208-AWQ). 
+- [2025.12.08] We've released [MobiMind-Reasoning-4B](https://huggingface.co/IPADS-SAI/MobiMind-Reasoning-4B-1208) and its quantized version [MobiMind-Reasoning-4B-AWQ](https://huggingface.co/IPADS-SAI/MobiMind-Reasoning-4B-1208-AWQ). 
 - [2025.11.03] Added multi-task execution support. See [Multi-task README](runner/mobiagent/multi_task/README.md) for details. 
 - [2025.11.03] Introduced a user profile memory system, enabled via `--user_profile on`. See [User Profile README](runner/README.md#user-profile--preference-memory-mem0graphrag) for details.
 
@@ -152,12 +154,10 @@ python -m pip install paddlepaddle-gpu>=3.1.0 -i https://www.paddlepaddle.org.cn
 After downloading the model checkpoints, use vLLM to deploy model inference services:
 
 download urls:
-- MobiMind-1.5-4B(***fastest&experimental**, support [e2e](https://github.com/IPADS-SAI/MobiAgent/blob/a782deae95fa33159ada0bb04d449be6e71e5e1c/runner/mobiagent/mobiagent.py#L1089)*):
-  -  [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-1.5-4B-1220)
-  -  [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-1.5-4B-1220)
-- MobiMind-Reasoning-4B(**stable**):
-  - [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-Reasoning-4B-1208)
-  - [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-Reasoning-4B-1208)
+- MobiMind-1.5-4B:
+  -  [huggingface](https://huggingface.co/IPADS-SAI/MobiMind-1.5-4B-0313)
+  -  [modelscope](https://www.modelscope.cn/models/fengerhu1/MobiMind-1.5-4B-0313)
+
 
 ```bash
 vllm serve MobiMind-Reasoning-4B --port <decider/grounder port>
@@ -225,8 +225,8 @@ Write the list of tasks that you would like to test in `runner/mobiagent/task.js
 python -m runner.mobiagent.mobiagent \
   --service_ip <Service IP> \
   --decider_port <Decider Service Port> \
-  --grounder_port <Grounder Service Port> # Same as Decider Port, be ignored when using --e2e flag \
   --planner_port <Planner Service Port>
+  # grounder_port is deprecated after MobiMind-1.5-4B-0313
 ```
 
 **With user profile memory:**
@@ -234,10 +234,10 @@ python -m runner.mobiagent.mobiagent \
 python -m runner.mobiagent.mobiagent \
   --service_ip <Service IP> \
   --decider_port <Decider Service Port> \
-  --grounder_port <Grounder Service Port> # Same as Decider Port, be ignored when using --e2e flag \
   --planner_port <Planner Service Port> \
   --user_profile on \
   --use_graphrag off  # Use 'on' for GraphRAG (Neo4j), 'off' for vector search (Milvus)
+  # grounder_port is deprecated after MobiMind-1.5-4B-0313
 ```
 
 Common parameters:
