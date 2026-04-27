@@ -17,7 +17,7 @@ import numpy as np
 from utils.local_experience import PromptTemplateSearch 
 from pathlib import Path
 import sys
-from hmdriver2.driver import Driver
+# from hmdriver2.driver import Driver
 from utils.load_md_prompt import load_prompt
 from dotenv import load_dotenv
 from utils.local_experience import PromptTemplateSearch 
@@ -282,9 +282,9 @@ decider_client = None
 grounder_client = None
 planner_client = None
 
-planner_model = ""
-decider_model = ""
-grounder_model = ""
+planner_model = "Qwen3-4B-Instruct-2507"
+decider_model = "MobiMind-Reasoning-4B-1208"
+grounder_model = "MobiMind-Reasoning-4B-1208"
 
 
 # 全局偏好提取器
@@ -386,7 +386,7 @@ def parse_json_response(response_str: str, is_guided_decoding: bool = True) -> d
         logging.error(f"原始响应: {response_str[:200]}...")
         raise ValueError(f"无法解析 JSON 响应: {e}")
 
-def get_screenshot(device, device_type="Android"):
+def get_screenshot(device: AndroidDevice, device_type="Android"):
     """
     获取设备截图并编码为base64
     
